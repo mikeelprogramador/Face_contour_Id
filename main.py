@@ -13,6 +13,8 @@ las cuales son:
 time
 Ultralytics-yolo 
 Opencv /Version 4.9.0
+PIL
+Faiss
 pytorch - ("Por el momento esta libreria pyhtorch no se esta utilizando en el proyecto")
 para este ultimo tendran que ingresar a: https://pytorch.org/get-started/previous-versions/
 y ver que version es compatible con su computadora y con python 3.9
@@ -20,7 +22,7 @@ y ver que version es compatible con su computadora y con python 3.9
 """
 
 print("""
-      Beta 0.0
+      Beta 1.0
       Bienvido al sistema de reconocimiento
     """)
     

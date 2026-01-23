@@ -2,6 +2,7 @@
 import cv2
 from ultralytics import YOLO
 import time
+from embedding import Vectorial
 
 """
 Documenatcion de la clase Program
@@ -16,6 +17,7 @@ class Program:
     
     def __init__(self):
         self.model = YOLO("yolov8n-face.pt") #Se carga el modelo de deteccion de rostros
+        self.embedding = Vectorial()
         self.key =  True 
         self.starTime = None
         self.run()
@@ -58,7 +60,9 @@ class Program:
                     self.starTime = time.time()
                 elif time.time() - self.starTime >= 5:#Tiempo de espera para capturar el frame
                     saveFrame = frame[y1:y2, x1:x2] #Guarda el objeto 
-                    cv2.imwrite("rostro.jpg",saveFrame)
+                    #saveFrame = cv2.cvtColor(frame[y1:y2, x1:x2], cv2.COLOR_BGR2RGB) #Guarda el objeto 
+                    self.embedding.imgTrasnform(saveFrame)
+                    #cv2.imwrite("rostro.jpg",saveFrame)
                     print("frame guardado")
                     self.key = False
                     
@@ -99,11 +103,26 @@ class Program:
                 
         cap.release()
         cv2.destroyAllWindows()
-            
+    
 
+    def opctions(self, opc):
+        
+        """
+        Documetacion de opctions
+        
+        :param self: Description
+        :param opc: Description
+        
+        Este metodo esta planeado para ser un filtro en el cual, se puedan guardar los dato 
+        y tambian usar otros metodos ajenos a la clase para comparalos.
+        """
+        
+        if opc == -1: #cuando la opcion es -1 es el registro
+            pass
+        if opc == 1: #Cuando la opcion sea 1 es incio de sesion
+            pass
             
             
 # if __name__ == "__main__":
 #     Program()
-
 
