@@ -20,7 +20,6 @@ class Program:
         self.embedding = Vectorial()
         self.key =  True 
         self.starTime = None
-        self.run()
         
         
     def detectionFace(self, frame):
@@ -52,19 +51,16 @@ class Program:
                 label = f"Buscando rostro. {conf:.2f}"#Si se quiere saber la umbral o la confianza
                 color = (0,255,255)
                 
-            if conf >= 0.85:
+            if conf > 0.85:
                 label = f"Rostro detectado. {conf:.2f}" 
                 color = (0,255,0)
                 
                 if self.starTime is None:
                     self.starTime = time.time()
-                elif time.time() - self.starTime >= 5:#Tiempo de espera para capturar el frame
-                    saveFrame = frame[y1:y2, x1:x2] #Guarda el objeto 
-                    #saveFrame = cv2.cvtColor(frame[y1:y2, x1:x2], cv2.COLOR_BGR2RGB) #Guarda el objeto 
-                    self.embedding.imgTrasnform(saveFrame)
-                    #cv2.imwrite("rostro.jpg",saveFrame)
-                    print("frame guardado")
-                    self.key = False
+                elif time.time() - self.starTime >= 3:#Tiempo de espera para capturar el frame
+                    self.opctions(frame[y1:y2, x1:x2])
+                    self.starTime = None
+                    
                     
         
         if label:
@@ -75,7 +71,7 @@ class Program:
         return frame
                 
     
-    def run(self):
+    def run(self,forentkey):
         """
         Documentacion de run
         
@@ -83,6 +79,7 @@ class Program:
         
         Este metodo ejecuta la camara, para dar inicio al reconocimiento de objetos.
         """
+        self.forentkey = forentkey
         #Cargamos la camara por defecto
         cap = cv2.VideoCapture(0)
         
@@ -103,9 +100,10 @@ class Program:
                 
         cap.release()
         cv2.destroyAllWindows()
+        self.key = True
     
 
-    def opctions(self, opc):
+    def opctions(self, frame):
         
         """
         Documetacion de opctions
@@ -117,12 +115,19 @@ class Program:
         y tambian usar otros metodos ajenos a la clase para comparalos.
         """
         
-        if opc == -1: #cuando la opcion es -1 es el registro
-            pass
-        if opc == 1: #Cuando la opcion sea 1 es incio de sesion
-            pass
+        if self.forentkey == -1: #cuando la opcion es -1 es el registro
+            #saveFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) #Guarda el objeto con formato de color
+            self.embedding.imgTrasnform(frame,self.forentkey)
+            #cv2.imwrite("rostro.jpg",saveFrame)
+            print("frame guardado")
+            
+        if self.forentkey == 1: #Cuando la opcion sea 1 es incio de sesion
+            self.embedding.imgTrasnform(frame,self.forentkey)
+        
+        self.key = False
             
             
 # if __name__ == "__main__":
 #     Program()
+
 

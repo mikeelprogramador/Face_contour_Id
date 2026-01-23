@@ -22,9 +22,11 @@ y ver que version es compatible con su computadora y con python 3.9
 """
 
 print("""
-      Beta 1.0
+      Beta 1.1
       Bienvido al sistema de reconocimiento
     """)
+
+appi = detection.Program()
     
 while True:
     opc = 0
@@ -43,10 +45,10 @@ while True:
         print("El dato ingrsado no coincide")
         
     if opc == 1:
-        detection.Program()
+        appi.run(-1)
         print("Registro finalizado")
     if opc == 2:
-        print("Esta opcion en desarollo")
+        appi.run(1)
     if opc == 3:
         print("Gracias por haber visitado el programa, hsata pronto :)")
         break

@@ -8,9 +8,11 @@ class Vectorial:
     
     def __init__(self):
         self.modelos()
+
     
-    def imgTrasnform(self, img):
+    def imgTrasnform(self, img,forentkey):
         self.datataSet = SaveData()
+        self.forentkey = forentkey
         imgTras = Image.fromarray(img)
     
         trasnform = v2.Compose([
@@ -40,13 +42,24 @@ class Vectorial:
         
         #Normalizamos el vector 
         self.imgVector = torch.nn.functional.normalize(self.imgVector, dim=1)
-        self.datataSet.save(self.imgVector)
+        self.opctions()
+
         
-        
-    def similitud(self,cos_sim,therhold=0.90):
-        return cos_sim >= therhold
     
-    def comparacionCose(self):
-        cos = torch.nn.functional.cosine_similarity
-        outpus = cos()
+    def opctions(self):
+        
+        """
+        Documetacion de opctions
+        
+        :param self: Description
+        :param opc: Description
+        
+        Este metodo esta planeado para ser un filtro en el cual, se puedan guardar los dato 
+        y tambian usar otros metodos ajenos a la clase para comparalos.
+        """
+        
+        if self.forentkey == -1: #cuando la opcion es -1 es el registro
+            self.datataSet.save(self.imgVector)
             
+        if self.forentkey == 1: #Cuando la opcion sea 1 es incio de sesion
+            self.datataSet.Similarites(self.imgVector)
