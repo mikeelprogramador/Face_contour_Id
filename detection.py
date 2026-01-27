@@ -4,19 +4,19 @@ from ultralytics import YOLO
 import time
 from embedding import Vectorial
 
-"""
-Documenatcion de la clase Program
-
-Esta clase tiene la funcion en cargada del reconocimiento de dichos objetos atravez del model-face de yolo
-otra funcion que tiene le permite administra la camara por defecto en el computador para que el modelo pueda hacer 
-el reconocimiento de los objetos
-
-"""
 
 class Program:
-    
+    """
+    Documenatcion de la clase Program
+
+    Esta clase tiene la funcion en cargada del reconocimiento de dichos objetos atravez del model-face de yolo
+    otra funcion que tiene le permite administra la camara por defecto en el computador para que el modelo pueda hacer 
+    el reconocimiento de los objetos
+
+    """
+
     def __init__(self):
-        self.model = YOLO("yolov8n-face.pt") #Se carga el modelo de deteccion de rostros
+        self.model = YOLO("model/yolov8n-face.pt") #Se carga el modelo de deteccion de rostros
         self.embedding = Vectorial()
         self.key =  True 
         self.starTime = None
@@ -69,6 +69,31 @@ class Program:
             cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)                #tipo de letra con su tamaño y color
                 
         return frame
+    
+    
+    def opctions(self, frame):
+        
+        """
+        Documetacion de opctions
+        
+        :param self: Description
+        :param opc: Description
+        
+        Este metodo esta planeado para ser un filtro en el cual, se puedan guardar los dato 
+        y tambian usar otros metodos ajenos a la clase para comparalos.
+        """
+        
+        if self.forentkey == -1: #cuando la opcion es -1 es el registro
+            #saveFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) #Guarda el objeto con formato de color
+            self.embedding.imgTrasnform(frame,self.forentkey)
+            #cv2.imwrite("rostro.jpg",saveFrame) #Guarda una imagen del frame
+            print("frame guardado")
+            
+        if self.forentkey == 1: #Cuando la opcion sea 1 es incio de sesion
+            self.embedding.imgTrasnform(frame,self.forentkey)
+        
+        self.key = False
+        
                 
     
     def run(self,forentkey):
@@ -103,29 +128,6 @@ class Program:
         self.key = True
     
 
-    def opctions(self, frame):
-        
-        """
-        Documetacion de opctions
-        
-        :param self: Description
-        :param opc: Description
-        
-        Este metodo esta planeado para ser un filtro en el cual, se puedan guardar los dato 
-        y tambian usar otros metodos ajenos a la clase para comparalos.
-        """
-        
-        if self.forentkey == -1: #cuando la opcion es -1 es el registro
-            #saveFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) #Guarda el objeto con formato de color
-            self.embedding.imgTrasnform(frame,self.forentkey)
-            #cv2.imwrite("rostro.jpg",saveFrame)
-            print("frame guardado")
-            
-        if self.forentkey == 1: #Cuando la opcion sea 1 es incio de sesion
-            self.embedding.imgTrasnform(frame,self.forentkey)
-        
-        self.key = False
-            
             
 # if __name__ == "__main__":
 #     Program()

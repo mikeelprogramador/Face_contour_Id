@@ -12,7 +12,7 @@ class SaveData:
             self.index = faiss.read_index("data/DataSet.index")
         else:
             dim = 512
-            self.index = faiss.IndexFlatIP(dim)
+            self.index = faiss.IndexFlatIP(dim) #Se cra la datavectorial en coseno
             
     def save(self,vector):
         self.index.add(vector)
@@ -27,8 +27,8 @@ class SaveData:
             print("No exite ningun dato")
         else:
             #return similari >= therhold
-            print(similari)
-            print(indice)
+            print(similari) # muestra las similitudes con conseno
+            print(indice) # muestra el numero de datos que concuerdan con el input
             print(similari[0][0] >= therhold)           
 
 

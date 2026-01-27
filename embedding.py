@@ -1,16 +1,38 @@
 import torch
 from torchvision.transforms import v2
 from PIL import Image
-import torchvision.models as models
+from facenet_pytorch import MTCNN, InceptionResnetV1
+#import torchvision.models as models
 from data import SaveData
 
+# importante
+# Impementar la verificacion al de la perosna al momento de registrarse, ya que puede general un error en la data vectorial 
+# si una perosna llega a tener mas de un registro de su contorno facial
+
+
+
 class Vectorial:
+    """
+    Docstring for Vectorial
+    
+    esta clase transforma la imagen a un input que el modelo pueda comprender, para seguidamente ese dato
+    resultante convertirlo en un vector unidimencional
+    """
     
     def __init__(self):
-        self.modelos()
-
+        self.model()
+        
     
     def imgTrasnform(self, img,forentkey):
+        """
+        Docstring for imgTrasnform
+        
+        :param self: Description
+        :param img: dato del frame/array ingresado 
+        :param forentkey: llave que permite opciones de recorido al flujo
+        
+        trasnforma el dato ingreado en el parametro img y lo conviertre en un tensor de 3 dimenciones
+        """
         self.datataSet = SaveData()
         self.forentkey = forentkey
         imgTras = Image.fromarray(img)
@@ -28,20 +50,43 @@ class Vectorial:
         self.tensorImg = trasnform(imgTras)
         self.resizingVector()
         
-    def modelos(self):
-        self.model = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)
-        self.model.eval()
-        self.model = torch.nn.Sequential(*list(self.model.children())[:-1])
+
+    def model(self):
+        """
+        Documnetacion de model
         
+        :param self: Description
+        
+        En metodo es donde se carga el modelo face embedding 
+        el cual es un modelo de la libreria facenet-pytorch
+        
+        https://github.com/timesler/facenet-pytorch
+        """
+        self.mtcnn = MTCNN(image_size=225,margin=225)
+        self.resnet = InceptionResnetV1(pretrained='vggface2').eval()
+        
+        
+    #Este modelo tambien se verias afcetado en llegado caso se presente ese cambio.
     def resizingVector(self):
-        with torch.no_grad():
-            self.imgVector = self.model(self.tensorImg.unsqueeze(0))
+        """
+        Docstring for resizingVector
+        
+        :param self: Description
+        
+        El metodo resizingVector se encarga de de ajustar el tensor
+        para convertir dicha input en un vector unidimencional
+        """
+        
+        with torch.no_grad():#desactivamos el calculo de los gradianes
+            self.imgVector = self.resnet(self.tensorImg.unsqueeze(0))#agregamos una dimencion de tamaño 1 al incio princio
             
-        #Se convierte el vector a uno unidemncional
+        #Convertimos el vector multidimencional a un vector unidimencional
         self.imgVector = self.imgVector.flatten(1)
         
         #Normalizamos el vector 
         self.imgVector = torch.nn.functional.normalize(self.imgVector, dim=1)
+        
+        #print(self.imgVector.shape)
         self.opctions()
 
         

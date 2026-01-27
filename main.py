@@ -14,6 +14,7 @@ time
 Ultralytics-yolo 
 Opencv /Version 4.9.0
 PIL
+facenet-pytorch /version 2.6.0
 Faiss
 pytorch - ("Por el momento esta libreria pyhtorch no se esta utilizando en el proyecto")
 para este ultimo tendran que ingresar a: https://pytorch.org/get-started/previous-versions/
@@ -22,7 +23,7 @@ y ver que version es compatible con su computadora y con python 3.9
 """
 
 print("""
-      Beta 1.1
+      Beta 1.2
       Bienvido al sistema de reconocimiento
     """)
 
