@@ -3,7 +3,7 @@ from torchvision.transforms import v2
 from PIL import Image
 from facenet_pytorch import MTCNN, InceptionResnetV1
 #import torchvision.models as models
-from data import SaveData
+from dataVectorial import SaveData
 
 # importante
 # Impementar la verificacion al de la perosna al momento de registrarse, ya que puede general un error en la data vectorial 
@@ -107,4 +107,5 @@ class Vectorial:
             self.datataSet.save(self.imgVector)
             
         if self.forentkey == 1: #Cuando la opcion sea 1 es incio de sesion
+
             self.datataSet.Similarites(self.imgVector)
