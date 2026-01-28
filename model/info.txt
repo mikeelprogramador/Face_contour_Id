@@ -1,7 +1,13 @@
+Importante: El modelo de deteccion debe estar en la carpeta model.
+
 Para el model-face de yolo puedes bucar en ultralystc o directamnete puedes usar un github 
 
 https://github.com/YapaLab/yolo-face?tab=readme-ov-file
 
-este tiene algunos modelos resientes
+este tiene algunos modelos resientes.
+
+modelo de yolo8
+https://github.com/Yusepp/YOLOv8-Face
+https://drive.google.com/file/d/1IJZBcyMHGhzAi0G4aZLcqryqZSjPsps-/view
 
 Nota si el proyecto se implemento un modelo de yolo8, pero lo mas propisio es que se actualice a un modelo de yolo12

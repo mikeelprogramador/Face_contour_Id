@@ -10,6 +10,8 @@ A media de que el proyecto vaya avanzado se ira actualizando
 por el momento para que funcione correctamnete tendras que instalar unas librerias 
 las cuales son:
 
+Recomensable crean un entorno para isntalar las librerias, mientras se dockerisa
+
 time
 Ultralytics-yolo 
 Opencv /Version 4.9.0
@@ -23,7 +25,7 @@ y ver que version es compatible con su computadora y con python 3.9
 """
 
 print("""
-      Beta 1.2
+      Beta 1.3
       Bienvido al sistema de reconocimiento
     """)
 
@@ -42,15 +44,25 @@ while True:
     
     try:
         opc = int(input())
+        
+        if opc == 1:
+            try:
+                appi.run(-1)
+                print("Registro finalizado")
+            except Exception as e:
+                print(e)
+
+        if opc == 2:
+            try:
+                appi.run(1)
+            except Exception as e:
+                print(e)
+            
+        if opc == 3:
+            print("Gracias por haber visitado el programa, hsata pronto :)")
+            break
+        
     except:
         print("El dato ingrsado no coincide")
         
-    if opc == 1:
-        appi.run(-1)
-        print("Registro finalizado")
-    if opc == 2:
-        appi.run(1)
-    if opc == 3:
-        print("Gracias por haber visitado el programa, hsata pronto :)")
-        break
-
+   

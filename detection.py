@@ -18,8 +18,15 @@ class Program:
     def __init__(self):
         self.model = YOLO("model/yolov8n-face.pt") #Se carga el modelo de deteccion de rostros
         self.embedding = Vectorial()
-        self.key =  True 
+       # self.key =  True 
         self.starTime = None
+        
+        self.bs = cv2.createBackgroundSubtractorMOG2(
+            history=500, 
+            varThreshold=50, # Sensibilidad al cambio de pixel
+            detectShadows=False
+        )
+        
         
         
     def detectionFace(self, frame):
@@ -47,9 +54,10 @@ class Program:
             if conf < 0.5:
                 continue
             
-            if conf > 0.8: 
+            if conf > 0.8 and conf < 0.85: 
                 label = f"Buscando rostro. {conf:.2f}"#Si se quiere saber la umbral o la confianza
                 color = (0,255,255)
+                self.starTime = None
                 
             if conf > 0.85:
                 label = f"Rostro detectado. {conf:.2f}" 
@@ -84,15 +92,15 @@ class Program:
         """
         
         if self.forentkey == -1: #cuando la opcion es -1 es el registro
-            #saveFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) #Guarda el objeto con formato de color
+            # saveFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) #Guarda el objeto con formato de color
             self.embedding.imgTrasnform(frame,self.forentkey)
-            #cv2.imwrite("rostro.jpg",saveFrame) #Guarda una imagen del frame
-            print("frame guardado")
+            # cv2.imwrite("rostro.jpg",saveFrame) #Guarda una imagen del frame
+            # print("frame guardado")
             
         if self.forentkey == 1: #Cuando la opcion sea 1 es incio de sesion
             self.embedding.imgTrasnform(frame,self.forentkey)
         
-        self.key = False
+        # self.key = False
         
                 
     
@@ -114,10 +122,16 @@ class Program:
             if not ret:
                 break
             elif ret == True:
-                if self.key:
-                    exitFrame = self.detectionFace(frame)
-                else:
-                    exitFrame = frame
+                
+                exitFrame = frame
+                mask = self.bs.apply(frame) #compra el frame con el fondo de vuelve una mascara binaria.
+                movimiento = cv2.countNonZero(mask) #Cuanta cuantos pixeles cambiaron
+                if movimiento > 3500:
+                     exitFrame = self.detectionFace(frame)
+                # if self.key:
+                #    exitFrame = self.detectionFace(frame)
+                # else:
+                #    exitFrame = frame 
                 cv2.imshow('Camare',exitFrame)
                 
                 if cv2.waitKey(1) == 27: #Oprimir la letra ESC para cerrar la ventana
@@ -125,7 +139,7 @@ class Program:
                 
         cap.release()
         cv2.destroyAllWindows()
-        self.key = True
+        # self.key = True
     
 
             

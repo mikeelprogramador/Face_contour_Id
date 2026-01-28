@@ -20,7 +20,7 @@ class Vectorial:
     """
     
     def __init__(self):
-        self.model()
+        self.__model()
         
     
     def imgTrasnform(self, img,forentkey):
@@ -48,10 +48,10 @@ class Vectorial:
         ])
 
         self.tensorImg = trasnform(imgTras)
-        self.resizingVector()
+        self.__resizingVector()
         
 
-    def model(self):
+    def __model(self):
         """
         Documnetacion de model
         
@@ -66,15 +66,14 @@ class Vectorial:
         self.resnet = InceptionResnetV1(pretrained='vggface2').eval()
         
         
-    #Este modelo tambien se verias afcetado en llegado caso se presente ese cambio.
-    def resizingVector(self):
+    def __resizingVector(self):
         """
         Docstring for resizingVector
         
         :param self: Description
         
         El metodo resizingVector se encarga de de ajustar el tensor
-        para convertir dicha input en un vector unidimencional
+        para convertir dicho input en un vector unidimencional
         """
         
         with torch.no_grad():#desactivamos el calculo de los gradianes
@@ -86,7 +85,7 @@ class Vectorial:
         #Normalizamos el vector 
         self.imgVector = torch.nn.functional.normalize(self.imgVector, dim=1)
         
-        #print(self.imgVector.shape)
+        # print(self.imgVector.shape)
         self.opctions()
 
         
@@ -104,8 +103,7 @@ class Vectorial:
         """
         
         if self.forentkey == -1: #cuando la opcion es -1 es el registro
-            self.datataSet.save(self.imgVector)
+            self.datataSet.searchPerson(self.imgVector)
             
         if self.forentkey == 1: #Cuando la opcion sea 1 es incio de sesion
-
             self.datataSet.Similarites(self.imgVector)
