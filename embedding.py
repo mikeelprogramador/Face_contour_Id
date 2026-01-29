@@ -60,7 +60,10 @@ class Vectorial:
         En metodo es donde se carga el modelo face embedding 
         el cual es un modelo de la libreria facenet-pytorch
         
-        https://github.com/timesler/facenet-pytorch
+        https://github.com/timesler/facenet-pytorch 
+        
+        Nota: Este modelo es bastante viejo por lo cual con las versiones mas 
+        recientes de torch no esta compatible
         """
         self.mtcnn = MTCNN(image_size=225,margin=225)
         self.resnet = InceptionResnetV1(pretrained='vggface2').eval()

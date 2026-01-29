@@ -7,20 +7,11 @@ El proyecto esta diseñado en pyhton version 3.9
 
 Recomedacion del programador:
 A media de que el proyecto vaya avanzado se ira actualizando
-por el momento para que funcione correctamnete tendras que instalar unas librerias 
-las cuales son:
+por el momento para que funcione correctamnete tendras que instalar unas librerias.
 
-Recomensable crean un entorno para isntalar las librerias, mientras se dockerisa
+Recomensable crean un entorno para instalar las librerias 
+que se encuentras en el requirements.txt 
 
-time
-Ultralytics-yolo 
-Opencv /Version 4.9.0
-PIL
-facenet-pytorch /version 2.6.0
-Faiss
-pytorch - ("Por el momento esta libreria pyhtorch no se esta utilizando en el proyecto")
-para este ultimo tendran que ingresar a: https://pytorch.org/get-started/previous-versions/
-y ver que version es compatible con su computadora y con python 3.9
 
 """
 
