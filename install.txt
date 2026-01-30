@@ -1,0 +1,25 @@
+Este archivo que ayuada a instalar el proyecto en un entorno virtual
+
+Comandos para ejecutar el proyecto.
+Tiene que abrir una terminal donde con la ruta del porgrama. Anterior mente ya debes tener instalado python 3.9.0
+Seguidamente ejecutaras el siguiente comando en la terminal
+
+py -3.9 -m venv env
+
+Esto creara un entorno virtual de python3.9 
+
+Activaras el entorno virtual ingresando a la carpeta env/Scripts
+alli encontras muchos modelos de activacion prueba usado:
+
+.\Activate.ps1 ó activate
+
+para poner a correr el entorno virtual, seguidamente actualizaremos pip install
+
+python -m pip install --upgrade pip
+
+una vez de haya actualizado salimos de la carpeta de Scripts y de env para volver a la carpeta principal
+y ejecutamos el siguiente comando 
+
+pip install -r requirements.txt
+
+para depues ejecutar el archivo main.py

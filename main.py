@@ -10,7 +10,7 @@ A media de que el proyecto vaya avanzado se ira actualizando
 por el momento para que funcione correctamnete tendras que instalar unas librerias.
 
 Recomensable crean un entorno para instalar las librerias 
-que se encuentras en el requirements.txt 
+que se encuentras en el requirements.txt
 
 
 """
